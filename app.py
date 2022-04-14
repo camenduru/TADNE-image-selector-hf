@@ -94,6 +94,8 @@ def run(
 
     tags = general_tags + hair_color_tags + hair_style_tags + \
         eye_color_tags + image_color_tags + other_tags + additional_tags
+    missing_tags = [tag for tag in tags if tag not in deepdanbooru_tag_dict]
+
     tag_indices = [
         deepdanbooru_tag_dict[tag] for tag in tags
         if tag in deepdanbooru_tag_dict
@@ -128,7 +130,7 @@ def run(
                                          ncols * image_size, 3)
     seeds = np.asarray(seeds).reshape(nrows, ncols)
 
-    return len(image_indices), res, seeds
+    return len(image_indices), res, seeds, ','.join(missing_tags)
 
 
 def main():
@@ -239,6 +241,7 @@ def main():
             gr.outputs.Textbox(type='number', label='Number of Found Images'),
             gr.outputs.Image(type='numpy', label='Output'),
             gr.outputs.Dataframe(type='numpy', label='Seed'),
+            gr.outputs.Textbox(type='str', label='Missing Tags'),
         ],
         title=TITLE,
         description=DESCRIPTION,

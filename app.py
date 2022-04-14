@@ -72,7 +72,9 @@ def run(
     general_tags: list[str],
     hair_color_tags: list[str],
     hair_style_tags: list[str],
+    eye_color_tags: list[str],
     image_color_tags: list[str],
+    other_tags: list[str],
     additional_tags: str,
     score_threshold: float,
     start_index: int,
@@ -87,10 +89,11 @@ def run(
     deepdanbooru_predictions: np.ndarray,
 ) -> tuple[int, np.ndarray, np.ndarray]:
     hair_color_tags = [f'{color}_hair' for color in hair_color_tags]
+    eye_color_tags = [f'{color}_eyes' for color in eye_color_tags]
     additional_tags = additional_tags.split(',')
 
-    tags = general_tags + hair_color_tags + hair_style_tags + image_color_tags
-    tags += additional_tags
+    tags = general_tags + hair_color_tags + hair_style_tags + \
+        eye_color_tags + image_color_tags + other_tags + additional_tags
     tag_indices = [
         deepdanbooru_tag_dict[tag] for tag in tags
         if tag in deepdanbooru_tag_dict
@@ -162,6 +165,7 @@ def main():
                 '1boy',
                 'multiple_girls',
                 'multiple_boys',
+                'looking_at_viewer',
             ],
                                     label='General'),
             gr.inputs.CheckboxGroup([
@@ -186,16 +190,40 @@ def main():
                 'long_hair',
                 'medium_hair',
                 'messy_hair',
+                'ponytail',
                 'short_hair',
                 'straight_hair',
                 'twintails',
             ],
                                     label='Hair Style'),
             gr.inputs.CheckboxGroup([
+                'aqua',
+                'black',
+                'blue',
+                'brown',
+                'green',
+                'grey',
+                'orange',
+                'pink',
+                'purple',
+                'red',
+                'white',
+                'yellow',
+            ],
+                                    label='Eye Color'),
+            gr.inputs.CheckboxGroup([
                 'greyscale',
                 'monochrome',
             ],
                                     label='Image Color'),
+            gr.inputs.CheckboxGroup([
+                'animal_ears',
+                'closed_eyes',
+                'full_body',
+                'hat',
+                'smile',
+            ],
+                                    label='Others'),
             gr.inputs.Textbox(label='Additional Tags'),
             gr.inputs.Slider(0,
                              1,

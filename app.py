@@ -108,7 +108,7 @@ def run(
     with tarfile.TarFile(tarball_path) as tar_file:
         for index in range(start_index, start_index + num):
             if index >= len(image_indices):
-                seeds.append(-1)
+                seeds.append(np.nan)
                 images.append(dummy)
                 continue
             image_index = image_indices[index]

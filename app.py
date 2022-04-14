@@ -73,6 +73,7 @@ def run(
     hair_color_tags: list[str],
     hair_style_tags: list[str],
     image_color_tags: list[str],
+    additional_tags: str,
     score_threshold: float,
     start_index: int,
     nrows: int,
@@ -84,11 +85,16 @@ def run(
     tarball_path: pathlib.Path,
     deepdanbooru_tag_dict: dict[str, int],
     deepdanbooru_predictions: np.ndarray,
-) -> np.ndarray:
+) -> tuple[int, np.ndarray, np.ndarray]:
     hair_color_tags = [f'{color}_hair' for color in hair_color_tags]
+    additional_tags = additional_tags.split(',')
 
     tags = general_tags + hair_color_tags + hair_style_tags + image_color_tags
-    tag_indices = [deepdanbooru_tag_dict[tag] for tag in tags]
+    tags += additional_tags
+    tag_indices = [
+        deepdanbooru_tag_dict[tag] for tag in tags
+        if tag in deepdanbooru_tag_dict
+    ]
 
     conditions = deepdanbooru_predictions[:, tag_indices] > score_threshold
     image_indices = np.arange(len(deepdanbooru_predictions))
@@ -190,6 +196,7 @@ def main():
                 'monochrome',
             ],
                                     label='Image Color'),
+            gr.inputs.Textbox(label='Additional Tags'),
             gr.inputs.Slider(0,
                              1,
                              step=0.1,

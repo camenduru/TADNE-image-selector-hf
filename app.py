@@ -31,6 +31,7 @@ Related Apps:
 - [TADNE Image Viewer](https://huggingface.co/spaces/hysts/TADNE-image-viewer)
 - [TADNE Interpolation](https://huggingface.co/spaces/hysts/TADNE-interpolation)
 - [TADNE Image Search with DeepDanbooru](https://huggingface.co/spaces/hysts/TADNE-image-search-with-DeepDanbooru)
+- [DeepDanbooru](https://huggingface.co/spaces/hysts/DeepDanbooru)
 '''
 ARTICLE = '<center><img src="https://visitor-badge.glitch.me/badge?page_id=hysts.tadne-image-selector" alt="visitor badge"/></center>'
 

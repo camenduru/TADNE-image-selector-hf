@@ -134,8 +134,6 @@ def run(
 
 
 def main():
-    gr.close_all()
-
     args = parse_args()
 
     image_size = 128

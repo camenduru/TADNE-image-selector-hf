@@ -24,7 +24,7 @@ The original images are 512x512 in size, but here they are resized to 128x128.
 Known issues:
 - The `Seed` table in the output doesn't refresh properly in gradio 2.9.1. https://github.com/gradio-app/gradio/issues/921
 '''
-ARTICLE = None
+ARTICLE = '<center><img src="https://visitor-badge.glitch.me/badge?page_id=hysts.tadne-image-selector" alt="visitor badge"/></center>'
 
 TOKEN = os.environ['TOKEN']
 
